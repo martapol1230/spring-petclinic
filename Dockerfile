@@ -11,7 +11,7 @@
 # CMD ["java", "-jar", "/app.jar"]
 
 # Use a specific version to ensure reproducible builds
-FROM openjdk:20-slim AS builder
+FROM openjdk:22-jdk-bullseye AS builder
 
 # Update system packages
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
@@ -22,8 +22,7 @@ WORKDIR /App
 # Creates JAR File
 RUN ./mvnw package
 
-FROM openjdk:20-slim
-
+FROM openjdk:22-jdk-bullseye
 # Update system packages
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
