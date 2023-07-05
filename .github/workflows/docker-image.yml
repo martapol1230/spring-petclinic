@@ -12,6 +12,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ sercets.DOCKERHUB_TOKEN }}
 
     steps:
     - uses: actions/checkout@v3
@@ -36,8 +39,8 @@ jobs:
     #     vuln-type: 'os,library'
     #     severity: 'CRITICAL,HIGH'
 
-    # - name: Docker Login
-    #   run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Docker Login
+      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # - name: Docker Push
-    #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}
+    - name: Docker Push
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}
