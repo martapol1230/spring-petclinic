@@ -42,7 +42,7 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean compile
-      working-directory: ./App
+      working-directory: spring-petclinic/App
 
     - name: Run SonarQube analysis
       uses: SonarSource/sonarcloud-github-action@master  
@@ -50,7 +50,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: ./App
+        projectBaseDir: spring-petclinic/App
     - name: Build Image
       run: |
         docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}" .
