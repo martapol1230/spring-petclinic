@@ -21,11 +21,14 @@ jobs:
         docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}" .
         docker images
         
-    # - name: SonarCloud Scan
-    #   uses: sonarsource/sonarcloud-github-action@master
-    #   env:
-    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    # Scans the code   
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+    # Scans the image for vulnerabilities
     # - name: Run Trivy vulnerability scanner
     #   uses: aquasecurity/trivy-action@master
     #   with:
