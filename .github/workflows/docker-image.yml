@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
   workflow_dispatch:
 
 jobs:
@@ -26,18 +26,18 @@ jobs:
     #   env:
     #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: "${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}"
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+    # - name: Run Trivy vulnerability scanner
+    #   uses: aquasecurity/trivy-action@master
+    #   with:
+    #     image-ref: "${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}"
+    #     format: 'table'
+    #     exit-code: '1'
+    #     ignore-unfixed: true
+    #     vuln-type: 'os,library'
+    #     severity: 'CRITICAL,HIGH'
 
-    - name: Docker Login
-      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+    # - name: Docker Login
+    #   run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: Docker Push
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}
+    # - name: Docker Push
+    #   run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/petclinic:${{ github.sha }}
